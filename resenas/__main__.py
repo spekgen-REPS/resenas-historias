@@ -177,6 +177,12 @@ def cmd_goteo(a):
     print(f"{t['cod']} goteo: {len(pend)} en cola · siguiente {cola['siguiente']} (UTC) · faltan {max(falta, 0) / 3600:.1f} h")
     if not pend or falta > 0 or a.dry:
         return
+    if -falta > 3600:   # se pasó más de 1 h de la cita (corrida perdida): no se publica a deshoras, espera la siguiente
+        while sig <= ahora:
+            sig += datetime.timedelta(days=1)
+        cola["siguiente"] = sig.strftime(fmt)
+        json.dump(cola, open(cola_p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        print(f"  goteo: cita perdida; se mueve a {cola['siguiente']} (misma hora)"); return
     c = pend[0]
     salida = pathlib.Path(os.environ.get("RESENAS_SALIDA") or (pathlib.Path.home() / "resenas_salida")); salida.mkdir(parents=True, exist_ok=True)
     base = f"{t['cod']}_{ahora:%Y%m%d}_goteo_{_h(c['id'])[:8]}"
