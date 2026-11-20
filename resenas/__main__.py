@@ -72,7 +72,7 @@ def perfil_publico(pg, place_id=None, url=None):
     tab.evaluate("e=>e.click()"); pg.wait_for_timeout(2500)
     info["visibles"] = pg.evaluate("""()=>[...document.querySelectorAll('div.jftiEf')].map(d=>({id:d.getAttribute('data-review-id'),
         nombre:(d.querySelector('.d4r55')||{}).innerText, estrellas:parseInt((d.querySelector('.kvMYJc')||{getAttribute:()=>0}).getAttribute('aria-label'))||null,
-        texto:((d.querySelector('.MyEned .wiI7pd')||{}).innerText||'').length}))""")
+        texto:((d.querySelector('.MyEned .wiI7pd')||{}).innerText||'').length, fotos:d.querySelectorAll('.KtCyie button').length}))""")
     return info
 
 
@@ -119,8 +119,11 @@ def cmd_nuevas(a):
         carpeta = pathlib.Path(salida) if salida else unidad(t) / "04 Content" / "Social Media" / hoy.strftime("%Y-%m") / "RESENAS_NUEVAS"
         for k, r in enumerate(nuevas, 1):
             entrada = {"visto": str(hoy), "historia": None}
-            if (r["estrellas"] or 0) < t.get("min_estrellas", 4) or not r["texto"]:
-                print(f"  #{k}: se salta ({r['estrellas']}★ o sin texto)"); reg["vistas"][_h(r["id"])] = entrada; continue
+            # regla de Gibran (20-nov): sólo 4-5★; y que tenga algo que mostrar (texto o foto)
+            if (r["estrellas"] or 0) < t.get("min_estrellas", 4):
+                print(f"  #{k}: se salta ({r['estrellas']}★, menos de {t.get('min_estrellas', 4)})"); reg["vistas"][_h(r["id"])] = entrada; continue
+            if not r["texto"] and not r.get("fotos"):
+                print(f"  #{k}: se salta (sólo estrellas, sin texto ni foto)"); reg["vistas"][_h(r["id"])] = entrada; continue
             if a.dry:
                 print(f"  #{k}: nueva de {r['estrellas']}★ (en seco, no se produce)"); continue
             carpeta.mkdir(parents=True, exist_ok=True)

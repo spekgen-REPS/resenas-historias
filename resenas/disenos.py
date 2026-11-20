@@ -24,7 +24,8 @@ body{position:relative;font-family:Poppins,sans-serif}.abs{position:absolute}
 .stack{position:absolute;left:0;right:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
 %CSS%</style></head><body>%BODY%
 <script>function fit(){document.querySelectorAll('.fitme').forEach(st=>{const max=+st.dataset.max;let w=+st.dataset.w;const cs=[...st.children];
-while(st.scrollHeight>max&&w>400){w-=20;cs.forEach(c=>c.style.width=w+'px')}})}</script></body></html>"""
+const cs2=cs.filter(c=>c.querySelector('.card')||c.classList.contains('fr')||c.classList.contains('card'));
+while(st.scrollHeight>max&&w>400){w-=20;cs2.forEach(c=>c.style.width=w+'px')}})}</script></body></html>"""
 
 
 # ------------------------------------------------------------------ piezas
@@ -270,7 +271,7 @@ def spk_s1_v5(img, servicio=""):
     body = f"""<div class="abs" style="inset:0;background:radial-gradient(circle at 50% 46%,#f2f2f3 0,#d6d6d9 45%,#a9a9ae 100%)"></div>
 <div class="abs" style="left:-200px;top:300px;width:1480px;height:1300px;background:radial-gradient(circle,rgba(255,255,255,.55),transparent 60%);animation:deriva 2.5s ease-in-out infinite alternate"></div>
 {fijos}{anillos}{hearts}
-<div class="stack" style="top:280px;height:1080px;gap:44px;animation:sale .55s ease-in {SALIDA}s forwards">
+<div class="stack fitme" data-max="1080" data-w="940" style="top:280px;height:1080px;gap:44px;animation:sale .55s ease-in {SALIDA}s forwards">
 <div style="font-family:'Archivo Black';font-size:74px;color:{c2};white-space:nowrap;animation:titulo .8s ease-out 0s both">CUSTOMER REVIEW</div>
 {card_animada(img, 940, .25)}</div>
 {_gracias("¡Gracias por tu reseña!", "Seguimos trabajando para ti.", c2, "#2b2f3a", "'Archivo Black'", u('assets/spk_negro_c.png'), 64, c1)}"""
@@ -295,7 +296,7 @@ def ssi_a_v5(img, servicio=""):
     body = f"""<div class="abs" style="inset:0;background:#faf8f1"></div>
 <div class="abs" style="inset:0;background:repeating-linear-gradient(135deg,rgba(139,195,74,.08) 0 40px,transparent 40px 80px)"></div>
 {adorno}
-<div class="stack" style="top:270px;height:1100px;gap:36px;animation:sale .55s ease-in {SALIDA}s forwards">
+<div class="stack fitme" data-max="1100" data-w="930" style="top:270px;height:1100px;gap:36px;animation:sale .55s ease-in {SALIDA}s forwards">
 <div style="text-align:center;animation:sube .7s ease-out 0s both">
  <div style="font-family:Oswald;font-weight:700;font-size:96px;color:#1a1a1a;line-height:1">RESEÑA DE CLIENTE</div>{chip}</div>
 {card_animada(img, 930, .2)}</div>

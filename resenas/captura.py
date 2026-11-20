@@ -45,6 +45,12 @@ def capturar(pg, rid, cid, salida, nombre=""):
     est = card.locator("[role=img][aria-label*=estrella], .kvMYJc").first.bounding_box()
     fin = card.locator(".MyEned .wiI7pd").first
     fb = fin.bounding_box() if fin.count() else est
+    fotos = card.locator(".KtCyie").first          # fotos que dejó el cliente (se muestran completas)
+    if fotos.count():
+        fotos.scroll_into_view_if_needed(); pg.wait_for_timeout(1500)   # las miniaturas cargan perezosas
+        bx = card.bounding_box(); est = card.locator("[role=img][aria-label*=estrella], .kvMYJc").first.bounding_box()
+        fb = fotos.bounding_box()
+    info["fotos"] = card.locator(".KtCyie button").count()
     cue = pg.screenshot(clip={"x": bx["x"], "y": est["y"] - 12, "width": bx["width"], "height": fb["y"] + fb["height"] - est["y"] + 34})
     a, b = Image.open(io.BytesIO(cab)), Image.open(io.BytesIO(cue))
     lienzo = Image.new("RGB", (a.width, a.height + b.height), "white")
