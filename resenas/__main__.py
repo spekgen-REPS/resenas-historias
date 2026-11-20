@@ -175,9 +175,11 @@ def cmd_goteo(a):
     sig = datetime.datetime.strptime(cola["siguiente"], fmt).replace(tzinfo=datetime.timezone.utc)
     falta = (sig - ahora).total_seconds()
     print(f"{t['cod']} goteo: {len(pend)} en cola · siguiente {cola['siguiente']} (UTC) · faltan {max(falta, 0) / 3600:.1f} h")
-    if not pend or falta > 0 or a.dry:
+    if not pend or (falta > 0 and not a.forzar) or a.dry:
         return
-    if -falta > 3600:   # se pasó más de 1 h de la cita (corrida perdida): no se publica a deshoras, espera la siguiente
+    # GitHub retrasa o se salta corridas programadas: si la cita ya pasó pero sigue siendo el mismo día en La Paz
+    # (hasta 9 h tarde), se publica en cuanto corra. Más tarde que eso, espera la misma hora del día siguiente.
+    if -falta > 9 * 3600 and not a.forzar:
         while sig <= ahora:
             sig += datetime.timedelta(days=1)
         cola["siguiente"] = sig.strftime(fmt)
@@ -286,7 +288,7 @@ if __name__ == "__main__":
     sp = ap.add_subparsers(dest="cmd", required=True)
     n = sp.add_parser("nuevas"); n.add_argument("--cliente", required=True); n.add_argument("--sembrar", action="store_true"); n.add_argument("--dry", action="store_true"); n.add_argument("--publicar", action="store_true")
     d = sp.add_parser("destacada"); d.add_argument("--cliente", required=True); d.add_argument("--capturas", required=True); d.add_argument("--salida")
-    g = sp.add_parser("goteo"); g.add_argument("--cliente", required=True); g.add_argument("--dry", action="store_true"); g.add_argument("--publicar", action="store_true")
+    g = sp.add_parser("goteo"); g.add_argument("--cliente", required=True); g.add_argument("--dry", action="store_true"); g.add_argument("--publicar", action="store_true"); g.add_argument("--forzar", action="store_true", help="publica ya, aunque no sea la hora")
     s = sp.add_parser("singles"); s.add_argument("--cliente", required=True); s.add_argument("--capturas", required=True); s.add_argument("--salida"); s.add_argument("--solo", nargs="*")
     c = sp.add_parser("capturar"); c.add_argument("--cliente", required=True); c.add_argument("--ids", required=True); c.add_argument("--salida", required=True); c.add_argument("--excluir", action="append", default=[])
     a = ap.parse_args()

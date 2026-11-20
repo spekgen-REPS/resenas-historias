@@ -11,6 +11,10 @@ on:
         description: "Sólo revisar, sin producir ni publicar"
         type: boolean
         default: false
+      forzar_goteo:
+        description: "Publicar ya la siguiente reseña del goteo (aunque no sea la hora)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -61,7 +65,7 @@ jobs:
           if [ "${{ inputs.seco }}" = "true" ]; then
             python -m resenas goteo --cliente ${{ matrix.cliente }} --dry
           else
-            python -m resenas goteo --cliente ${{ matrix.cliente }} --publicar
+            python -m resenas goteo --cliente ${{ matrix.cliente }} --publicar $( [ "${{ inputs.forzar_goteo }}" = "true" ] && echo --forzar )
           fi
       - name: Guardar registro
         if: always()
