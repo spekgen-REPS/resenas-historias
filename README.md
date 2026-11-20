@@ -5,6 +5,7 @@ Cada 30 minutos, GitHub Actions revisa los perfiles públicos de Google Maps de 
 - `resenas/temas/<cod>.json`: perfiles, cuentas y diseño de cada marca. Ninguna marca repite el template de otra.
 - `resenas/disenos.py`: animaciones (HTML/CSS cuadro a cuadro con Playwright + ffmpeg).
 - `resenas/sonido_v5.py`, `resenas/sonido_spk.py`: sonido amarrado a lo que se mueve; tomas del banco de [earshot](https://github.com/Leonxlnx/earshot) (MIT) en `resenas/sfx/`.
+- **Goteo:** si en 3 días no salió ninguna historia de reseña, publica la siguiente reseña vieja de `estado/cola_<cod>.json` (sólo IDs públicos de Google, sin nombres).
 - `estado/vistas_<cod>.json`: IDs **cifrados** (sha256) de las reseñas ya vistas. Sin nombres.
 - Secretos (Settings → Secrets): `META_TOKEN`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`.
 

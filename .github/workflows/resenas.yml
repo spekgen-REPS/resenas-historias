@@ -49,6 +49,20 @@ jobs:
           else
             python -m resenas nuevas --cliente ${{ matrix.cliente }} --publicar
           fi
+      - name: Goteo de reseñas viejas (1 cada 3 días si no salió otra)
+        env:
+          PYTHONUTF8: "1"
+          RESENAS_ESTADO: estado
+          RESENAS_SALIDA: ${{ runner.temp }}/salida
+          META_TOKEN: ${{ secrets.META_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [ "${{ inputs.seco }}" = "true" ]; then
+            python -m resenas goteo --cliente ${{ matrix.cliente }} --dry
+          else
+            python -m resenas goteo --cliente ${{ matrix.cliente }} --publicar
+          fi
       - name: Guardar registro
         if: always()
         run: |

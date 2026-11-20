@@ -1,6 +1,7 @@
 """Historias de Instagram con reseñas REALES de Google Maps (screenshot), animadas.
 
   python -m resenas nuevas    --cliente SSI [--sembrar] [--dry] [--publicar]
+  python -m resenas goteo     --cliente SPK [--dry] [--publicar]   (reseñas viejas, una cada N días)
   python -m resenas destacada --cliente SSI --capturas <dir> [--salida <dir>]
   python -m resenas singles   --cliente SSI --capturas <dir> [--solo 02_victor ...]
   python -m resenas capturar  --cliente SSI --ids <ids.json> --salida <dir> [--excluir "Nombre"]
@@ -141,7 +142,7 @@ def cmd_nuevas(a):
                 from . import publicar as pub
                 res = pub.publicar(t, [str(mp4)], f"{t['cod'].lower()}/resenas/{hoy:%Y-%m}")
                 entrada.update(story_id=res[0]["story_id"], fb_post_id=res[0].get("fb_post_id"))
-                publicados.append(res[0])
+                publicados.append(res[0]); reg["ultima_publicacion"] = _ahora()
             reg["vistas"][_h(r["id"])] = entrada
             json.dump(reg, open(reg_p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)   # guarda tras cada una
         b.close()
@@ -152,6 +153,55 @@ def cmd_nuevas(a):
             f.write(f"### {t['cod']}: {len(nuevas)} reseña(s) nueva(s), {len(publicados)} publicada(s)\n")
             for x in publicados:
                 f.write(f"- IG story {x['story_id']} · FB {x.get('fb_post_id')}\n")
+
+
+def _ahora():
+    return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def cmd_goteo(a):
+    """Reseñas viejas a goteo (Gibran, 20-nov): si en `cada_dias` no salió ninguna historia de reseña,
+    publica la siguiente de estado/cola_<cod>.json. La cola sólo trae IDs públicos de Google, sin nombres."""
+    t = tema(a.cliente); reg_p, reg = registro(a.cliente)
+    cola_p = reg_p.with_name(f"cola_{a.cliente.lower()}.json")
+    if not cola_p.exists():
+        print("sin cola"); return
+    cola = json.load(open(cola_p, encoding="utf-8"))
+    pend = [c for c in cola["pendientes"] if not (reg["vistas"].get(_h(c["id"])) or {}).get("historia")]
+    ahora = datetime.datetime.now(datetime.timezone.utc)
+    ult = reg.get("ultima_publicacion")
+    falta = None
+    if ult:
+        prox = datetime.datetime.strptime(ult, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=datetime.timezone.utc) + datetime.timedelta(days=cola.get("cada_dias", 3))
+        falta = prox - ahora
+    print(f"{t['cod']} goteo: {len(pend)} en cola · última historia {ult or 'nunca'}" + (f" · siguiente en {max(falta.total_seconds(), 0) / 3600:.1f} h" if falta else ""))
+    if not pend or (falta and falta.total_seconds() > 0) or a.dry:
+        return
+    c = pend[0]
+    salida = pathlib.Path(os.environ.get("RESENAS_SALIDA") or (pathlib.Path.home() / "resenas_salida")); salida.mkdir(parents=True, exist_ok=True)
+    base = f"{t['cod']}_{ahora:%Y%m%d}_goteo_{_h(c['id'])[:8]}"
+    with sync_playwright() as p:
+        b, pg = navegador(p)
+        png = salida / f"{base}_captura.png"
+        det = captura.capturar(pg, c["id"], c["cid"], str(png))
+        servicio = captura.servicio_de(det["atributos"])
+        pg2 = b.new_page(viewport={"width": 1080, "height": 1920})
+        body, dur = disenos.SINGLES[t["single"]](png.as_uri(), servicio)
+        mp4 = salida / f"{base}.mp4"
+        producir(mp4, body, dur, pg2, t, t["single"], 1, bool(disenos.PLAGAS.search(servicio)))
+        b.close()
+    entrada = {"visto": f"{ahora:%Y-%m-%d}", "historia": mp4.name, "origen": "goteo"}
+    if a.publicar:
+        from . import publicar as pub
+        res = pub.publicar(t, [str(mp4)], f"{t['cod'].lower()}/resenas/{ahora:%Y-%m}")
+        entrada.update(story_id=res[0]["story_id"], fb_post_id=res[0].get("fb_post_id"))
+        reg["ultima_publicacion"] = _ahora()
+    reg["vistas"][_h(c["id"])] = entrada
+    json.dump(reg, open(reg_p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"  goteo: historia {'publicada' if a.publicar else 'lista'} → {mp4.name} · quedan {len(pend) - 1}")
+    if os.environ.get("GITHUB_STEP_SUMMARY"):
+        with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
+            f.write(f"### {t['cod']} goteo: 1 reseña vieja publicada, quedan {len(pend) - 1}\n")
 
 
 def grupos(capturas):
@@ -226,7 +276,8 @@ if __name__ == "__main__":
     sp = ap.add_subparsers(dest="cmd", required=True)
     n = sp.add_parser("nuevas"); n.add_argument("--cliente", required=True); n.add_argument("--sembrar", action="store_true"); n.add_argument("--dry", action="store_true"); n.add_argument("--publicar", action="store_true")
     d = sp.add_parser("destacada"); d.add_argument("--cliente", required=True); d.add_argument("--capturas", required=True); d.add_argument("--salida")
+    g = sp.add_parser("goteo"); g.add_argument("--cliente", required=True); g.add_argument("--dry", action="store_true"); g.add_argument("--publicar", action="store_true")
     s = sp.add_parser("singles"); s.add_argument("--cliente", required=True); s.add_argument("--capturas", required=True); s.add_argument("--salida"); s.add_argument("--solo", nargs="*")
     c = sp.add_parser("capturar"); c.add_argument("--cliente", required=True); c.add_argument("--ids", required=True); c.add_argument("--salida", required=True); c.add_argument("--excluir", action="append", default=[])
     a = ap.parse_args()
-    {"nuevas": cmd_nuevas, "destacada": cmd_destacada, "singles": cmd_singles, "capturar": cmd_capturar}[a.cmd](a)
+    {"nuevas": cmd_nuevas, "goteo": cmd_goteo, "destacada": cmd_destacada, "singles": cmd_singles, "capturar": cmd_capturar}[a.cmd](a)

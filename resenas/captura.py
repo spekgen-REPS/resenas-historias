@@ -38,7 +38,7 @@ def capturar(pg, rid, cid, salida, nombre=""):
     import io
     bx = card.bounding_box()
     # cabecera: avatar + nombre (en la vista por ID vive fuera de la tarjeta)
-    nm = pg.get_by_text(nombre, exact=True).first
+    nm = pg.get_by_text(nombre, exact=True).first if nombre else pg.locator("button.P9Vtnb").first   # sin nombre: el botón del autor
     nb = nm.bounding_box()
     cab = pg.screenshot(clip={"x": bx["x"], "y": nb["y"] - 20, "width": bx["width"], "height": nb["height"] + 46})
     # cuerpo: estrellas + texto
