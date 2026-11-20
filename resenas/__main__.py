@@ -160,7 +160,7 @@ def _ahora():
 
 
 def cmd_goteo(a):
-    """Reseñas viejas a goteo (Gibran, 20-nov): si en `cada_dias` no salió ninguna historia de reseña,
+    """Reseñas viejas a goteo (Gibran, 20-nov): agenda fija en cola["siguiente"] (UTC), cada `cada_dias` días,
     publica la siguiente de estado/cola_<cod>.json. La cola sólo trae IDs públicos de Google, sin nombres."""
     t = tema(a.cliente); reg_p, reg = registro(a.cliente)
     cola_p = reg_p.with_name(f"cola_{a.cliente.lower()}.json")
@@ -168,14 +168,14 @@ def cmd_goteo(a):
         print("sin cola"); return
     cola = json.load(open(cola_p, encoding="utf-8"))
     pend = [c for c in cola["pendientes"] if not (reg["vistas"].get(_h(c["id"])) or {}).get("historia")]
+    # agenda fija (Gibran, 20-nov): SPK y SSI salen juntas a la misma hora, cada `cada_dias` días.
+    # cola["siguiente"] = próxima cita en UTC (15:00 La Paz = 22:00 UTC). Las reseñas nuevas no la mueven.
     ahora = datetime.datetime.now(datetime.timezone.utc)
-    ult = reg.get("ultima_publicacion")
-    falta = None
-    if ult:
-        prox = datetime.datetime.strptime(ult, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=datetime.timezone.utc) + datetime.timedelta(days=cola.get("cada_dias", 3))
-        falta = prox - ahora
-    print(f"{t['cod']} goteo: {len(pend)} en cola · última historia {ult or 'nunca'}" + (f" · siguiente en {max(falta.total_seconds(), 0) / 3600:.1f} h" if falta else ""))
-    if not pend or (falta and falta.total_seconds() > 0) or a.dry:
+    fmt = "%Y-%m-%dT%H:%M:%SZ"
+    sig = datetime.datetime.strptime(cola["siguiente"], fmt).replace(tzinfo=datetime.timezone.utc)
+    falta = (sig - ahora).total_seconds()
+    print(f"{t['cod']} goteo: {len(pend)} en cola · siguiente {cola['siguiente']} (UTC) · faltan {max(falta, 0) / 3600:.1f} h")
+    if not pend or falta > 0 or a.dry:
         return
     c = pend[0]
     salida = pathlib.Path(os.environ.get("RESENAS_SALIDA") or (pathlib.Path.home() / "resenas_salida")); salida.mkdir(parents=True, exist_ok=True)
@@ -198,6 +198,10 @@ def cmd_goteo(a):
         reg["ultima_publicacion"] = _ahora()
     reg["vistas"][_h(c["id"])] = entrada
     json.dump(reg, open(reg_p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    while sig <= ahora:                       # misma hora, cada N días (si se brincó una corrida, no se encima)
+        sig += datetime.timedelta(days=cola.get("cada_dias", 3))
+    cola["siguiente"] = sig.strftime(fmt)
+    json.dump(cola, open(cola_p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"  goteo: historia {'publicada' if a.publicar else 'lista'} → {mp4.name} · quedan {len(pend) - 1}")
     if os.environ.get("GITHUB_STEP_SUMMARY"):
         with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:

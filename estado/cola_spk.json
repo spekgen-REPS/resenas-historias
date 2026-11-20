@@ -1,5 +1,5 @@
 {
- "nota": "Rese\u00f1as viejas de SPK con texto (sin Monse Alonzo), para soltarlas una cada 3 d\u00edas. S\u00f3lo IDs p\u00fablicos de Google, sin nombres.",
+ "nota": "Reseñas viejas de SPK con texto (sin Monse Alonzo), para soltarlas una cada 3 días a las 3 pm de La Paz, junto con la otra marca. Sólo IDs públicos de Google, sin nombres.",
  "cada_dias": 3,
  "pendientes": [
   {
@@ -30,5 +30,7 @@
    "id": "Ci9DQUlRQUNvZENodHljRjlvT201SlVEWnpSRk5YZW5GMGRGVmFNREZVVDNKQkxXYxAB",
    "cid": "0xdaf1d9cf8f90c1ed"
   }
- ]
+ ],
+ "siguiente": "2026-11-20T22:00:00Z",
+ "hora": "15:00 La Paz (UTC-7) = 22:00 UTC; el cron la toma a las 22:07 UTC"
 }
