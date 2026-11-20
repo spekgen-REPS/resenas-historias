@@ -1,10 +1,10 @@
 name: Reseñas nuevas → historias
 
-# Cada hora revisa los perfiles públicos de Google Maps; cada reseña nueva de 4-5★ con texto se vuelve una
+# Cada 30 minutos revisa los perfiles públicos de Google Maps; cada reseña nueva de 4-5★ con texto se vuelve una
 # historia animada (screenshot real) y se publica en Instagram y Facebook. Repo público = minutos de Actions gratis.
 on:
   schedule:
-    - cron: "17 * * * *"
+    - cron: "7,37 * * * *"   # cada 30 min (repo público: minutos gratis)
   workflow_dispatch:
     inputs:
       seco:
