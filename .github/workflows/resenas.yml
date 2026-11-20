@@ -27,7 +27,7 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        cliente: [SPK]          # SSI entra cuando Gibran lo platique con Rodrigo
+        cliente: [SPK, SSI]     # SSI activo desde el 20-nov-2026 (Gibran)
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
