@@ -169,7 +169,7 @@ def cmd_goteo(a):
     cola = json.load(open(cola_p, encoding="utf-8"))
     pend = [c for c in cola["pendientes"] if not (reg["vistas"].get(_h(c["id"])) or {}).get("historia")]
     # agenda fija (Gibran, 20-nov): SPK y SSI salen juntas a la misma hora, cada `cada_dias` días.
-    # cola["siguiente"] = próxima cita en UTC (15:00 La Paz = 22:00 UTC). Las reseñas nuevas no la mueven.
+    # cola["siguiente"] = próxima cita en UTC (9:00 La Paz = 16:00 UTC; antes 15:00). Las reseñas nuevas no la mueven.
     ahora = datetime.datetime.now(datetime.timezone.utc)
     fmt = "%Y-%m-%dT%H:%M:%SZ"
     sig = datetime.datetime.strptime(cola["siguiente"], fmt).replace(tzinfo=datetime.timezone.utc)

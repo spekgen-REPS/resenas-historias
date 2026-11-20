@@ -1,36 +1,36 @@
 {
- "nota": "Reseñas viejas de SPK con texto (sin Monse Alonzo), para soltarlas una cada 3 días a las 3 pm de La Paz, junto con la otra marca. Sólo IDs públicos de Google, sin nombres.",
- "cada_dias": 3,
- "pendientes": [
-  {
-   "id": "Ci9DQUlRQUNvZENodHljRjlvT25kdWNXWkhaRmhCUmxGMGR6WkRTVVJDZFZkdU5sRRAB",
-   "cid": "0xdaf1d9cf8f90c1ed"
-  },
-  {
-   "id": "Ci9DQUlRQUNvZENodHljRjlvT21OcVJWQjVTVEpxVFVOSFVFdEtWazFDVDJ4R1gwRRAB",
-   "cid": "0xdaf1d9cf8f90c1ed"
-  },
-  {
-   "id": "Ci9DQUlRQUNvZENodHljRjlvT2pkRWNYUlhVSEZCU2xoMU9IRlpSR2cxTUZnd05HYxAB",
-   "cid": "0xdaf1d9cf8f90c1ed"
-  },
-  {
-   "id": "Ci9DQUlRQUNvZENodHljRjlvT2pJemRFbGxTMFkyWVdab05tVTNiVVJ2VDE5WFNIYxAB",
-   "cid": "0xdaf1d9cf8f90c1ed"
-  },
-  {
-   "id": "Ci9DQUlRQUNvZENodHljRjlvT2tSUU1uSnhZVWg0ZUVGNE0zUmtUVWN4YW1sTVVsRRAB",
-   "cid": "0xdaf1d9cf8f90c1ed"
-  },
-  {
-   "id": "Ci9DQUlRQUNvZENodHljRjlvT21kV1ZrSk5TRU5oV25SU1YyaEJVWEEyTXpFNFYwRRAB",
-   "cid": "0xdaf1d9cf8f90c1ed"
-  },
-  {
-   "id": "Ci9DQUlRQUNvZENodHljRjlvT201SlVEWnpSRk5YZW5GMGRGVmFNREZVVDNKQkxXYxAB",
-   "cid": "0xdaf1d9cf8f90c1ed"
-  }
- ],
- "siguiente": "2026-11-23T22:00:00Z",
- "hora": "15:00 La Paz (UTC-7) = 22:00 UTC; el cron la toma a las 22:07 UTC"
+  "nota": "Reseñas viejas de SPK con texto (sin Monse Alonzo), para soltarlas una cada 3 días a las 9 am de La Paz, junto con la otra marca. Sólo IDs públicos de Google, sin nombres.",
+  "cada_dias": 3,
+  "pendientes": [
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT25kdWNXWkhaRmhCUmxGMGR6WkRTVVJDZFZkdU5sRRAB",
+      "cid": "0xdaf1d9cf8f90c1ed"
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT21OcVJWQjVTVEpxVFVOSFVFdEtWazFDVDJ4R1gwRRAB",
+      "cid": "0xdaf1d9cf8f90c1ed"
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2pkRWNYUlhVSEZCU2xoMU9IRlpSR2cxTUZnd05HYxAB",
+      "cid": "0xdaf1d9cf8f90c1ed"
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2pJemRFbGxTMFkyWVdab05tVTNiVVJ2VDE5WFNIYxAB",
+      "cid": "0xdaf1d9cf8f90c1ed"
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2tSUU1uSnhZVWg0ZUVGNE0zUmtUVWN4YW1sTVVsRRAB",
+      "cid": "0xdaf1d9cf8f90c1ed"
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT21kV1ZrSk5TRU5oV25SU1YyaEJVWEEyTXpFNFYwRRAB",
+      "cid": "0xdaf1d9cf8f90c1ed"
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT201SlVEWnpSRk5YZW5GMGRGVmFNREZVVDNKQkxXYxAB",
+      "cid": "0xdaf1d9cf8f90c1ed"
+    }
+  ],
+  "siguiente": "2026-11-23T16:00:00Z",
+  "hora": "09:00 La Paz (UTC-7) = 16:00 UTC; Supabase la dispara a las 16:00 UTC (Gibran, 20-nov: lunes 9 am)"
 }
