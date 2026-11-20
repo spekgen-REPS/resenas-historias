@@ -26,9 +26,11 @@
    "nota": "existía al sembrar (18-nov-2026)"
   },
   "1c9124ea109ce37bd150": {
-   "visto": "2026-11-18",
-   "historia": null,
-   "nota": "existía al sembrar (18-nov-2026)"
+   "visto": "2026-11-20",
+   "historia": "SPK_20261120_goteo_1c9124ea.mp4",
+   "origen": "goteo",
+   "story_id": "18103936520361977",
+   "fb_post_id": "2359452844831401"
   },
   "c3389318e51d003979f6": {
    "visto": "2026-11-18",
@@ -63,5 +65,5 @@
    "fb_post_id": "2730363637425421"
   }
  },
- "ultima_publicacion": "2026-11-20T02:50:00Z"
+ "ultima_publicacion": "2026-11-20T23:30:47Z"
 }
