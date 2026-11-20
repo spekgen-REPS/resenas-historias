@@ -1,0 +1,29 @@
+{
+ "cod": "SPK",
+ "unidad": "SPK — AGENCY",
+ "place_id": "ChIJ38ZJc3AeLAUR7cGQj8_Z8do",
+ "cid": "0xdaf1d9cf8f90c1ed",
+ "single": "spk_s1",
+ "multi": "spk_m2",
+ "min_estrellas": 4,
+ "nota": "Elegido por Gibran el 18-nov-2026: single S1 «Customer Review» animado y múltiple M2 «Cuadrícula» animado. Sonido (19-nov): single D «Kalimba», múltiple C «Cristal» (sonido_spk.py).",
+ "sonido": {
+  "single": "D",
+  "multi": "C"
+ },
+ "ig_id": "17841470950821661",
+ "ig_usuario": "spekgen",
+ "perfiles": [
+  {
+   "nombre": "La Paz",
+   "url": "https://www.google.com/maps/place/?q=place_id:ChIJ38ZJc3AeLAUR7cGQj8_Z8do&hl=es-419",
+   "cid": "0xdaf1d9cf8f90c1ed"
+  },
+  {
+   "nombre": "Jalisco",
+   "url": "https://www.google.com/maps?cid=13496628603795297258&hl=es-419",
+   "cid": "0xbb4da834fa9853ea"
+  }
+ ],
+ "fb_page_id": "465169736679258"
+}

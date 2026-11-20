@@ -1,0 +1,114 @@
+{
+"glide": [
+"spk_glide.wav",
+0.258
+],
+"velvet": [
+"spk_velvet.wav",
+0.265
+],
+"cloth": [
+"spk_cloth.wav",
+0.176
+],
+"popin_round": [
+"spk_popin_round.wav",
+0.019
+],
+"popin_airy": [
+"spk_popin_airy.wav",
+0.018
+],
+"popin_double": [
+"spk_popin_double.wav",
+0.015
+],
+"ding": [
+"spk_ding.wav",
+0.005
+],
+"ding_lo": [
+"spk_ding_lo.wav",
+0.005
+],
+"bloom": [
+"spk_bloom.wav",
+0.298
+],
+"zip_up": [
+"spk_zip_up.wav",
+0.169
+],
+"zip_down": [
+"spk_zip_down.wav",
+0.059
+],
+"glitch_mid": [
+"spk_glitch_mid.wav",
+0.038
+],
+"tap_glass": [
+"spk_tap_glass.wav",
+0.004
+],
+"ptap_glass": [
+"spk_ptap_glass.wav",
+0.009
+],
+"ping": [
+"spk_ping.wav",
+0.004
+],
+"taps_tone": [
+"spk_taps_tone.wav",
+0.157
+],
+"zap_bloom": [
+"spk_zap_bloom.wav",
+0.076
+],
+"rev_short": [
+"spk_rev_short.wav",
+0.333
+],
+"tonal": [
+"spk_tonal.wav",
+0.35
+],
+"shimmer3": [
+"spk_shimmer3.wav",
+0.11
+],
+"whoosh_glass": [
+"spk_whoosh_glass.wav",
+0.201
+],
+"bloop": [
+"spk_bloop.wav",
+0.006
+],
+"boop": [
+"spk_boop.wav",
+0.004
+],
+"spark": [
+"spk_spark.wav",
+0.011
+],
+"kal_E5": [
+"spk_kalimba_E5.wav",
+0.009
+],
+"kal_G5": [
+"spk_kalimba_G5.wav",
+0.007
+],
+"kal_C5": [
+"spk_kalimba_C5.wav",
+0.013
+],
+"kal_C6": [
+"spk_kalimba_C6.wav",
+0.024
+]
+}
