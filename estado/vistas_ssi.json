@@ -1,9 +1,11 @@
 {
  "vistas": {
   "37731a92685b0a26f9fa": {
-   "visto": "2026-11-18",
-   "historia": null,
-   "nota": "existía al sembrar"
+   "visto": "2026-11-23",
+   "historia": "SSI_20261123_goteo_37731a92.mp4",
+   "origen": "goteo",
+   "story_id": "18078595892757497",
+   "fb_post_id": "4759390147626347"
   },
   "10b23cf0cdae5fe28c14": {
    "visto": "2026-11-18",
@@ -98,5 +100,5 @@
    "nota": "existía al sembrar"
   }
  },
- "ultima_publicacion": "2026-11-20T23:33:07Z"
+ "ultima_publicacion": "2026-11-23T16:04:41Z"
 }
