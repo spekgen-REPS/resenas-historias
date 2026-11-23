@@ -1,9 +1,11 @@
 {
  "vistas": {
   "3380082a3b403698b573": {
-   "visto": "2026-11-18",
-   "historia": null,
-   "nota": "existía al sembrar (18-nov-2026)"
+   "visto": "2026-11-23",
+   "historia": "SPK_20261123_goteo_3380082a.mp4",
+   "origen": "goteo",
+   "story_id": "18102941054434328",
+   "fb_post_id": "1931172484920824"
   },
   "4b350bc2eba4beb37f5e": {
    "visto": "2026-11-18",
@@ -65,5 +67,5 @@
    "fb_post_id": "2730363637425421"
   }
  },
- "ultima_publicacion": "2026-11-20T23:30:47Z"
+ "ultima_publicacion": "2026-11-23T16:02:42Z"
 }
