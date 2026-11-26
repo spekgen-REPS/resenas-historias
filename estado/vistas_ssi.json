@@ -70,9 +70,11 @@
    "nota": "existía al sembrar"
   },
   "9efe372c47858c8bb150": {
-   "visto": "2026-11-18",
-   "historia": null,
-   "nota": "existía al sembrar"
+   "visto": "2026-11-26",
+   "historia": "SSI_20261126_goteo_9efe372c.mp4",
+   "origen": "goteo",
+   "story_id": "18041166206894869",
+   "fb_post_id": "2081252119202249"
   },
   "d94601031ed0c1d05162": {
    "visto": "2026-11-18",
@@ -100,5 +102,5 @@
    "nota": "existía al sembrar"
   }
  },
- "ultima_publicacion": "2026-11-23T16:04:41Z"
+ "ultima_publicacion": "2026-11-26T16:04:43Z"
 }
